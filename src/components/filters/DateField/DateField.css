@@ -1,0 +1,51 @@
+.date-field-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  background-color: var(--color-bg);
+  font-size: 13px;
+  color: var(--color-text);
+  min-width: 140px;
+  justify-content: space-between;
+}
+
+.date-field-input:hover {
+  border-color: var(--color-primary);
+}
+
+.date-field-placeholder {
+  color: var(--color-text-light);
+}
+
+/* Surcharge du style par défaut de react-datepicker
+   pour rester cohérent avec la charte Amana */
+.react-datepicker {
+  font-family: inherit;
+  border-color: var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.react-datepicker__header {
+  background-color: var(--color-primary-light);
+  border-bottom: none;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: var(--color-secondary);
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--color-primary-light);
+  border-radius: var(--radius-sm);
+}

@@ -1,0 +1,19 @@
+.shipment-detail-card {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.pod-link-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.pod-link-btn:hover {
+  color: var(--color-primary-dark);
+}

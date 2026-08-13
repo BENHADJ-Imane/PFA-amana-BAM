@@ -1,0 +1,25 @@
+.navigation {
+  display: flex;
+  gap: 4px;
+  background-color: var(--color-primary-light);
+  padding: 6px;
+}
+
+.nav-item {
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(242, 113, 28, 0.15);
+}
+
+.nav-item-active {
+  background-color: var(--color-primary);
+  color: white;
+}

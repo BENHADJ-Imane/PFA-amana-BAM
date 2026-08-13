@@ -1,0 +1,44 @@
+.pod-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.pod-modal-content {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  max-width: 90%;
+  max-height: 90%;
+  position: relative;
+}
+
+.pod-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+}
+
+.pod-modal-close:hover {
+  color: var(--color-text);
+}
+
+.pod-modal-title {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.pod-modal-image {
+  max-width: 100%;
+  max-height: 60vh;
+  display: block;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}

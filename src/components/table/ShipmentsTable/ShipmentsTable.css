@@ -1,0 +1,47 @@
+.table-wrapper {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+.shipments-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.shipments-table th {
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 2px solid var(--color-border);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.shipments-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.shipments-table tbody tr:hover {
+  background-color: var(--color-bg-alt);
+}
+
+.print-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.print-btn:hover {
+  opacity: 1;
+}
+
+.table-empty {
+  padding: 40px;
+  text-align: center;
+  color: var(--color-text-light);
+}
