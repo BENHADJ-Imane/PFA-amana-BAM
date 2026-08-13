@@ -1,0 +1,79 @@
+.donut-chart-card {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.donut-chart-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.donut-chart-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.donut-chart-center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text);
+}
+
+.donut-chart-center-value {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.donut-chart-center-caption {
+  font-size: 11px;
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.donut-chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.donut-chart-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.donut-chart-empty {
+  color: var(--color-text-light);
+  padding: 40px 0;
+  text-align: center;
+}
+.donut-chart-tooltip {
+  background-color: var(--color-secondary);
+  color: white;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.donut-chart-legend-label {
+  font-weight: 500;
+}
+
+.donut-chart-legend-percent {
+  font-weight: 700;
+  color: var(--color-text-light);
+}

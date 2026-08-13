@@ -6,9 +6,9 @@
 // ⚠️ PROVISOIRE — seul "Envoi livré" est confirmé par les captures.
 // Les autres statuts sont des hypothèses à valider avec l'encadrant.
 export const STATUSES = [
-  { value: 'livre', label: 'Envoi livré', color: 'success' },
-  { value: 'en_cours', label: 'En cours de livraison', color: 'warning' }, // provisoire
-  { value: 'en_attente', label: 'En attente', color: 'neutral' }, // provisoire
+  { value: 'livre', label: 'Envoi livré', color: 'success', hexColor: '#2f6b2f' },
+  { value: 'en_cours', label: 'En cours de livraison', color: 'warning', hexColor: '#b8860b' }, // provisoire
+  { value: 'en_attente', label: 'En attente', color: 'neutral', hexColor: '#6b7280' }, // provisoire
 ];
 
 export const POD_OPTIONS = [
@@ -108,24 +108,24 @@ export function findShipmentByCode(code) {
   );
 }
 
-// Helper pour les stats (étape Dashboard) — calcule les totaux par statut
-export function getStatusBreakdown() {
+// Helper pour les stats (Dashboard) — calcule les totaux par statut
+// Accepte une liste optionnelle (déjà filtrée) ; sinon utilise tous les envois.
+export function getStatusBreakdown(list = shipments) {
   return STATUSES.map((status) => ({
-    ...status,
-    count: shipments.filter((s) => s.statut === status.value).length,
+    label: status.label,
+    color: status.hexColor,
+    count: list.filter((s) => s.statut === status.value).length,
   }));
 }
-
 // Helper pour les stats POD
-export function getPodBreakdown() {
-  const avec = shipments.filter((s) => s.pod).length;
-  const sans = shipments.length - avec;
+export function getPodBreakdown(list = shipments) {
+  const avec = list.filter((s) => s.pod).length;
+  const sans = list.length - avec;
   return [
-    { label: 'Avec POD', value: avec },
-    { label: 'Sans POD', value: sans },
+    { label: 'Avec POD', value: avec, color: '#2f6b2f' },
+    { label: 'Sans POD', value: sans, color: '#6b7280' },
   ];
 }
-
 // Helper pour la carte (regroupement par ville)
 export function getShipmentsByCity() {
   const grouped = {};
