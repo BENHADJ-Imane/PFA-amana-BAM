@@ -93,3 +93,8 @@
   justify-content: center;
   font-weight: 600;
 }
+.amana-logo {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+}

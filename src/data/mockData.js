@@ -63,7 +63,7 @@ export const shipments = [
     dateStatut: '2026-06-12T14:54:00',
     pod: false,
     dateExport: null,
-    ville: 'Fès',
+    ville: 'Fes',
   },
   {
     id: 5,

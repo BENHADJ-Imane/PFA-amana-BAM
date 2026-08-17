@@ -27,7 +27,7 @@ function Header() {
       </div>
 
       <div className="header-center">
-        <span className="header-logo">amana</span>
+        <img src="/AMANA-logo.png" alt="Amana" className="amana-logo" />
       </div>
 
       <div className="header-right">
