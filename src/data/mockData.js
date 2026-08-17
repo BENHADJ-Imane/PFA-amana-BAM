@@ -17,7 +17,7 @@ export const POD_OPTIONS = [
 ];
 
 // Villes utilisées pour la répartition sur la carte du Maroc (étape carte)
-const VILLES = ['Rabat', 'Casablanca', 'Fès', 'Tanger', 'Marrakech', 'Agadir'];
+const VILLES = ['Rabat', 'Casablanca', 'Fes', 'Tanger', 'Marrakech', 'Agadir'];
 
 export const shipments = [
   {
@@ -127,11 +127,37 @@ export function getPodBreakdown(list = shipments) {
   ];
 }
 // Helper pour la carte (regroupement par ville)
-export function getShipmentsByCity() {
+export function getShipmentsByCity(list = shipments) {
   const grouped = {};
   VILLES.forEach((v) => (grouped[v] = 0));
-  shipments.forEach((s) => {
+  list.forEach((s) => {
     grouped[s.ville] = (grouped[s.ville] || 0) + 1;
   });
   return grouped;
+}
+
+// Regroupe les envois par mois (basé sur la date de dépôt) pour le graphique linéaire.
+export function getShipmentsTimeline(list = shipments) {
+  const grouped = {};
+
+  list.forEach((s) => {
+    const date = new Date(s.dateDepot);
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    grouped[key] = (grouped[key] || 0) + 1;
+  });
+
+  const MONTHS_FR = [
+    'Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin',
+    'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc',
+  ];
+
+  return Object.keys(grouped)
+    .sort()
+    .map((key) => {
+      const [year, month] = key.split('-');
+      return {
+        label: `${MONTHS_FR[Number(month) - 1]} ${year}`,
+        total: grouped[key],
+      };
+    });
 }

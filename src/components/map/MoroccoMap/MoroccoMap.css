@@ -1,0 +1,22 @@
+.morocco-map-card {
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.morocco-map-svg {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+}
+
+.morocco-map-empty {
+  color: var(--color-text-light);
+  padding: 40px 0;
+  text-align: center;
+}
+.morocco-map-marker {
+  cursor: pointer;
+}

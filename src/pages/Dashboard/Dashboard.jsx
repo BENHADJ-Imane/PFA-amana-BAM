@@ -3,10 +3,14 @@ import {
   shipments,
   getStatusBreakdown,
   getPodBreakdown,
+  getShipmentsTimeline,
+  getShipmentsByCity,
 } from '../../data/mockData';
 import { filterShipments, EMPTY_FILTERS } from '../../utils/filterShipments';
 import FilterBar from '../../components/filters/FilterBar/FilterBar';
 import DonutChart from '../../components/charts/DonutChart/DonutChart';
+import EnvoisLineChart from '../../components/charts/EnvoisLineChart/EnvoisLineChart';
+import MoroccoMap from '../../components/map/MoroccoMap/MoroccoMap';
 import './Dashboard.css';
 
 function Dashboard() {
@@ -15,6 +19,8 @@ function Dashboard() {
   const filteredShipments = filterShipments(shipments, filters);
   const statusData = getStatusBreakdown(filteredShipments);
   const podData = getPodBreakdown(filteredShipments);
+  const timelineData = getShipmentsTimeline(filteredShipments);
+  const cityData = getShipmentsByCity(filteredShipments);
 
   return (
     <div>
@@ -25,6 +31,11 @@ function Dashboard() {
       <div className="dashboard-charts-grid">
         <DonutChart title="Détail des statuts" data={statusData} />
         <DonutChart title="Statut des POD" data={podData} />
+      </div>
+
+      <div className="dashboard-bottom-grid">
+        <EnvoisLineChart data={timelineData} />
+        <MoroccoMap cityData={cityData} />
       </div>
     </div>
   );
