@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, MessageSquare } from 'lucide-react';
-import { findShipmentByCode } from '../../data/mockData';
+import { fetchShipmentByCode } from '../../services/api';
 import ShipmentDetailCard from '../../components/shipment/ShipmentDetailCard/ShipmentDetailCard';
 import './TrackingSearch.css';
 
@@ -8,12 +8,23 @@ function TrackingSearch() {
   const [code, setCode] = useState('');
   const [searchedShipment, setSearchedShipment] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!code.trim()) return;
-    const result = findShipmentByCode(code);
-    setSearchedShipment(result || null);
+
+    setLoading(true);
     setHasSearched(true);
+
+    try {
+      const result = await fetchShipmentByCode(code.trim());
+      setSearchedShipment(result);
+    } catch (err) {
+      // 404 ou toute autre erreur -> on considere l'envoi comme non trouve
+      setSearchedShipment(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -45,13 +56,15 @@ function TrackingSearch() {
         </div>
       </div>
 
-      {hasSearched && !searchedShipment && (
+      {loading && <p className="tracking-search-empty">Recherche...</p>}
+
+      {!loading && hasSearched && !searchedShipment && (
         <p className="tracking-search-empty">
           Aucun envoi trouvé pour ce code.
         </p>
       )}
 
-      {searchedShipment && (
+      {!loading && searchedShipment && (
         <ShipmentDetailCard shipment={searchedShipment} />
       )}
     </div>

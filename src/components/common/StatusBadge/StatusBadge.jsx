@@ -1,4 +1,4 @@
-import { STATUSES } from '../../../data/mockData';
+import { STATUSES } from '../../../constants/shipmentOptions';
 import './StatusBadge.css';
 
 function StatusBadge({ statusValue }) {

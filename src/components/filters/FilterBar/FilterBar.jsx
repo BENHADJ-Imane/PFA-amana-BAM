@@ -1,5 +1,5 @@
 import { Search, RotateCcw } from 'lucide-react';
-import { STATUSES, POD_OPTIONS } from '../../../data/mockData';
+import { STATUSES, POD_OPTIONS } from '../../../constants/shipmentOptions';
 import { EMPTY_FILTERS } from '../../../utils/filterShipments';
 import DateField from '../DateField/DateField';
 import './FilterBar.css';
