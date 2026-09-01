@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
-import { shipments } from '../../data/mockData';
-import { filterShipments, EMPTY_FILTERS } from '../../utils/filterShipments';
+import { useState, useEffect } from 'react';
+import { fetchShipments } from '../../services/api';
+import { EMPTY_FILTERS } from '../../utils/filterShipments';
 import FilterBar from '../../components/filters/FilterBar/FilterBar';
 import ShipmentsTable from '../../components/table/ShipmentsTable/ShipmentsTable';
 import Pagination from '../../components/table/Pagination/Pagination';
@@ -9,26 +9,30 @@ function Shipments() {
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [shipments, setShipments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const filteredShipments = filterShipments(shipments, filters);
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
 
-  const totalPages = Math.max(
-    1,
-    Math.ceil(filteredShipments.length / pageSize)
-  );
+    fetchShipments(filters)
+      .then((data) => setShipments(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [filters]);
 
-  // Si le filtrage réduit le nombre de pages en dessous de la page actuelle,
-  // on revient automatiquement à la dernière page valide.
+  const totalPages = Math.max(1, Math.ceil(shipments.length / pageSize));
   const safePage = Math.min(currentPage, totalPages);
-
-  const paginatedShipments = useMemo(() => {
-    const start = (safePage - 1) * pageSize;
-    return filteredShipments.slice(start, start + pageSize);
-  }, [filteredShipments, safePage, pageSize]);
+  const paginatedShipments = shipments.slice(
+    (safePage - 1) * pageSize,
+    safePage * pageSize
+  );
 
   const handleFiltersChange = (newFilters) => {
     setFilters(newFilters);
-    setCurrentPage(1); // on repart à la page 1 à chaque changement de filtre
+    setCurrentPage(1);
   };
 
   const handlePageSizeChange = (newSize) => {
@@ -44,15 +48,23 @@ function Shipments() {
         onChange={handleFiltersChange}
         onReset={handleFiltersChange}
       />
-      <p className="results-count">{filteredShipments.length} Colis</p>
-      <ShipmentsTable shipments={paginatedShipments} />
-      <Pagination
-        currentPage={safePage}
-        totalPages={totalPages}
-        pageSize={pageSize}
-        onPageChange={setCurrentPage}
-        onPageSizeChange={handlePageSizeChange}
-      />
+
+      {loading && <p className="results-count">Chargement...</p>}
+      {error && <p className="results-count">Erreur : {error}</p>}
+
+      {!loading && !error && (
+        <>
+          <p className="results-count">{shipments.length} Colis</p>
+          <ShipmentsTable shipments={paginatedShipments} />
+          <Pagination
+            currentPage={safePage}
+            totalPages={totalPages}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={handlePageSizeChange}
+          />
+        </>
+      )}
     </div>
   );
 }
