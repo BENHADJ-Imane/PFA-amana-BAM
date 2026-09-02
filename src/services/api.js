@@ -4,12 +4,17 @@ const api = axios.create({
   baseURL: 'http://localhost:8080/api',
 });
 
-// Convertit le statut backend (ex: "LIVRE") vers le format attendu par le
-// frontend (ex: "livre"), pour rester compatible avec StatusBadge, FilterBar, etc.
+const BACKEND_BASE_URL = 'http://localhost:8080';
+
 function normalizeShipment(shipment) {
+  const isAbsoluteUrl = shipment.podImageUrl && shipment.podImageUrl.startsWith('http');
+
   return {
     ...shipment,
     statut: shipment.statut ? shipment.statut.toLowerCase() : shipment.statut,
+    podImageUrl: shipment.podImageUrl && !isAbsoluteUrl
+      ? `${BACKEND_BASE_URL}${shipment.podImageUrl}`
+      : shipment.podImageUrl,
   };
 }
 
@@ -46,6 +51,17 @@ export async function fetchStatistics(filters = {}) {
 
   const response = await api.get('/shipments/statistics', { params });
   return response.data;
+}
+
+export async function uploadPod(shipmentId, file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await api.post(`/shipments/${shipmentId}/pod`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
+  return normalizeShipment(response.data);
 }
 
 export default api;
